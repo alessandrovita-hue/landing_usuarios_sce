@@ -262,9 +262,9 @@ export default function Profile() {
           {/* Header */}
           <div className="flex items-start justify-between mb-8">
             <div className="flex items-center gap-6">
-              <Avatar className="h-24 w-24 border-4 border-mahogany-200">
+              <Avatar className="h-24 w-24 border-4 border-[#5c330a]/20">
                 <AvatarImage src={profile.picture} alt={profile.name} />
-                <AvatarFallback className="bg-mahogany-100 text-mahogany-800 text-3xl">
+                <AvatarFallback className="bg-[#5c330a]/10 text-[#5c330a] text-3xl">
                   {profile.name?.charAt(0)?.toUpperCase()}
                 </AvatarFallback>
               </Avatar>
@@ -274,7 +274,7 @@ export default function Profile() {
                 </h1>
                 <p className="text-muted-foreground">{profile.email}</p>
                 {profile.user_type === "club" && (
-                  <Badge className="mt-2 bg-mahogany-100 text-mahogany-800">Club</Badge>
+                  <Badge className="mt-2 bg-[#5c330a]/10 text-[#5c330a]">Club</Badge>
                 )}
               </div>
             </div>
@@ -352,7 +352,7 @@ export default function Profile() {
               <div className="flex gap-3">
                 <Button 
                   onClick={handleSave}
-                  className="bg-mahogany-500 hover:bg-mahogany-600"
+                  className="bg-[#5c330a] hover:bg-[#4A2908]"
                   disabled={saving}
                   data-testid="save-profile-btn"
                 >
@@ -392,7 +392,7 @@ export default function Profile() {
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-2">Ciudad</h3>
                     <div className="flex items-center gap-2 text-foreground">
-                      <MapPin className="w-4 h-4 text-mahogany-500" />
+                      <MapPin className="w-4 h-4 text-[#5c330a]" />
                       {profile.city}
                     </div>
                   </div>
@@ -427,7 +427,7 @@ export default function Profile() {
                 )}
                 <Dialog open={linkDialogOpen} onOpenChange={setLinkDialogOpen}>
                   <DialogTrigger asChild>
-                    <Button size="sm" className="bg-mahogany-500 hover:bg-mahogany-600" data-testid="link-chess-btn">
+                    <Button size="sm" className="bg-[#5c330a] hover:bg-[#4A2908]" data-testid="link-chess-btn">
                       <Link2 className="w-4 h-4 mr-2" />
                       Vincular
                     </Button>
@@ -510,7 +510,7 @@ export default function Profile() {
                           </div>
 
                           <Button 
-                            className="w-full bg-mahogany-500 hover:bg-mahogany-600"
+                            className="w-full bg-[#5c330a] hover:bg-[#4A2908]"
                             onClick={handleLinkAccount}
                             disabled={linking}
                             data-testid="confirm-link-btn"
@@ -544,7 +544,7 @@ export default function Profile() {
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-mahogany-800">{profile.chess_com_rating}</p>
+                    <p className="text-2xl font-bold text-[#5c330a]">{profile.chess_com_rating}</p>
                     <p className="text-xs text-muted-foreground">Rating</p>
                   </div>
                   {isOwnProfile && (
@@ -592,7 +592,7 @@ export default function Profile() {
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-mahogany-800">{profile.lichess_rating}</p>
+                    <p className="text-2xl font-bold text-[#5c330a]">{profile.lichess_rating}</p>
                     <p className="text-xs text-muted-foreground">Rating</p>
                   </div>
                   {isOwnProfile && (
