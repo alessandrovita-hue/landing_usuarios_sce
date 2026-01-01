@@ -242,7 +242,7 @@ export default function EventDetail() {
             {/* Details Card */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-border/50 space-y-4">
               <div className="flex items-start gap-3">
-                <Calendar className="w-5 h-5 text-mahogany-500 mt-0.5" />
+                <Calendar className="w-5 h-5 text-[#5c330a] mt-0.5" />
                 <div>
                   <p className="font-medium capitalize">{formattedDate}</p>
                   <p className="text-sm text-muted-foreground">{event.time}h</p>
@@ -250,7 +250,7 @@ export default function EventDetail() {
               </div>
 
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-mahogany-500 mt-0.5" />
+                <MapPin className="w-5 h-5 text-[#5c330a] mt-0.5" />
                 <div>
                   <p className="font-medium">{event.city}</p>
                   <p className="text-sm text-muted-foreground">{event.address}</p>
@@ -258,7 +258,7 @@ export default function EventDetail() {
               </div>
 
               <div className="flex items-start gap-3">
-                <Users className="w-5 h-5 text-mahogany-500 mt-0.5" />
+                <Users className="w-5 h-5 text-[#5c330a] mt-0.5" />
                 <div>
                   <p className="font-medium">
                     {event.seats_taken} / {event.max_seats} plazas
@@ -291,7 +291,7 @@ export default function EventDetail() {
                   </div>
                 ) : (
                   <Button 
-                    className="w-full bg-mahogany-500 hover:bg-mahogany-600 text-white rounded-full py-6"
+                    className="w-full bg-[#5c330a] hover:bg-[#4A2908] text-white rounded-full py-6"
                     onClick={handleJoin}
                     disabled={isFull || joining}
                     data-testid="join-event-btn"
@@ -303,8 +303,8 @@ export default function EventDetail() {
             )}
 
             {isOrganizer && (
-              <div className="bg-mahogany-50 rounded-2xl p-6 border border-mahogany-200">
-                <div className="flex items-center gap-2 text-mahogany-800">
+              <div className="bg-[#5c330a]/10 rounded-2xl p-6 border border-[#5c330a]/20">
+                <div className="flex items-center gap-2 text-[#5c330a]">
                   <Trophy className="w-5 h-5" />
                   <span className="font-medium">Eres el organizador</span>
                 </div>

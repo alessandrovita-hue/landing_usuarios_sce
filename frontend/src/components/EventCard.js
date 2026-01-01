@@ -67,7 +67,7 @@ export function EventCard({ event, index = 0 }) {
 
         {/* Content */}
         <div className="p-4">
-          <h3 className="font-semibold text-lg text-foreground line-clamp-1 group-hover:text-mahogany-800 transition-colors">
+          <h3 className="font-semibold text-lg text-foreground line-clamp-1 group-hover:text-[#5c330a] transition-colors">
             {event.title}
           </h3>
           
