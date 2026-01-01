@@ -1,0 +1,176 @@
+{
+  "identity": {
+    "name": "Social Chess Events",
+    "tone": "Community-focused, Strategic, Modern Classic, Accessible",
+    "aesthetic": "Playtomic-style Clean UI with Warm Earthy Tones",
+    "archetype": "Organic & Earthy (Archetype 1)"
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Playfair Display, serif",
+      "body": "Manrope, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "scale": {
+      "h1": "text-4xl md:text-5xl font-bold tracking-tight",
+      "h2": "text-3xl md:text-4xl font-semibold tracking-tight",
+      "h3": "text-2xl md:text-3xl font-medium",
+      "body_lg": "text-lg leading-relaxed",
+      "body_base": "text-base leading-relaxed",
+      "caption": "text-sm text-muted-foreground"
+    },
+    "instructions": "Use Playfair Display for the main logo and H1 headings to give a 'Classic Chess' feel. Use Manrope for all UI elements, cards, and body text for maximum readability and a modern sports-app vibe."
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "DEFAULT": "#5A2A2A",
+        "foreground": "#F5F5F0",
+        "hover": "#4E2525"
+      },
+      "secondary": {
+        "DEFAULT": "#C04000",
+        "foreground": "#FFFFFF",
+        "hover": "#A03500"
+      },
+      "background": {
+        "DEFAULT": "#F5F5F0",
+        "paper": "#FFFFFF"
+      },
+      "accent": {
+        "DEFAULT": "#4F7942",
+        "foreground": "#FFFFFF",
+        "soft": "#E8F5E9"
+      },
+      "muted": {
+        "DEFAULT": "#E5E5E0",
+        "foreground": "#78716C"
+      },
+      "border": "#E7E5E4"
+    },
+    "semantic": {
+      "success": "#4F7942",
+      "warning": "#D97706",
+      "error": "#DC2626",
+      "info": "#5A2A2A"
+    },
+    "tailwind_config_extension": {
+      "colors": {
+        "mahogany": {
+          "50": "#FDF6F4",
+          "100": "#FBECE9",
+          "200": "#F5D0C9",
+          "300": "#EEB3A8",
+          "400": "#E69688",
+          "500": "#C04000",
+          "600": "#A03500",
+          "700": "#802A00",
+          "800": "#5A2A2A",
+          "900": "#3D1C1C"
+        },
+        "beige": {
+          "50": "#FBFBF9",
+          "100": "#F5F5F0",
+          "200": "#EBEBE6",
+          "300": "#E0E0DB",
+          "400": "#D6D6D0",
+          "500": "#CCCBC5"
+        }
+      }
+    }
+  },
+  "layout": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "spacing": {
+      "section_gap": "py-16 md:py-24",
+      "card_padding": "p-6",
+      "grid_gap": "gap-6 md:gap-8"
+    },
+    "grid_systems": {
+      "bento": "grid grid-cols-1 md:grid-cols-3 gap-4",
+      "cards": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+    },
+    "radius": {
+      "default": "rounded-xl",
+      "button": "rounded-full",
+      "card": "rounded-2xl"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-6 font-medium transition-all shadow-md hover:shadow-lg",
+      "secondary": "bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-full px-6 py-4 font-medium",
+      "outline": "border-2 border-primary text-primary hover:bg-primary/5 rounded-full px-6 py-4 font-medium",
+      "ghost": "hover:bg-muted text-foreground rounded-lg px-4 py-2"
+    },
+    "cards": {
+      "event": "bg-white rounded-2xl shadow-sm hover:shadow-md transition-all border border-border/50 overflow-hidden group",
+      "profile": "bg-white rounded-2xl shadow-sm p-6 border border-border/50",
+      "club": "bg-white rounded-2xl shadow-sm hover:shadow-md transition-all p-0 overflow-hidden"
+    },
+    "inputs": {
+      "default": "bg-white border-border focus:ring-2 focus:ring-primary/20 rounded-lg h-12 px-4"
+    },
+    "navigation": {
+      "mobile": "fixed bottom-0 left-0 right-0 bg-white border-t border-border p-4 flex justify-around items-center z-50 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]",
+      "desktop": "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+    }
+  },
+  "visual_enhancers": {
+    "shadows": {
+      "soft": "shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
+      "hover": "shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+    },
+    "gradients": {
+      "hero": "bg-gradient-to-b from-beige-100 to-white",
+      "overlay": "bg-gradient-to-t from-black/60 to-transparent"
+    },
+    "textures": "Use subtle noise texture on the beige background if possible to give it a 'paper' feel."
+  },
+  "media": {
+    "image_urls": {
+      "hero": [
+        "https://images.unsplash.com/photo-1741926677819-c7543a44d2f2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHw0fHxwZW9wbGUlMjBwbGF5aW5nJTIwY2hlc3MlMjBzb2NpYWwlMjBjYWZlJTIwcGFya3xlbnwwfHx8fDE3NjczMDY3MTF8MA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1617740102894-b860db2b2012?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwzfHxwZW9wbGUlMjBwbGF5aW5nJTIwY2hlc3MlMjBzb2NpYWwlMjBjYWZlJTIwcGFya3xlbnwwfHx8fDE3NjczMDY3MTF8MA&ixlib=rb-4.1.0&q=85"
+      ],
+      "events": [
+        "https://images.unsplash.com/photo-1743686749360-712a3bfb19f0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxjaGVzcyUyMHRvdXJuYW1lbnQlMjBoYWxsJTIwYm9hcmRzJTIwY2xvY2tzfGVufDB8fHx8MTc2NzMwNjcxNXww&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1683673940036-106de8a52705?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHxjaGVzcyUyMHRvdXJuYW1lbnQlMjBoYWxsJTIwYm9hcmRzJTIwY2xvY2tzfGVufDB8fHx8MTc2NzMwNjcxNXww&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1699813555526-9fd23f91c7b3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHw0fHxjaGVzcyUyMHRvdXJuYW1lbnQlMjBoYWxsJTIwYm9hcmRzJTIwY2xvY2tzfGVufDB8fHx8MTc2NzMwNjcxNXww&ixlib=rb-4.1.0&q=85"
+      ],
+      "avatars": [
+        "https://images.unsplash.com/photo-1658288098101-84f074c292a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwcG9ydHJhaXRzJTIwc21pbGluZyUyMHBlb3BsZXxlbnwwfHx8fDE3NjczMDY3MTZ8MA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1634552516330-ab1ccc0f605e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw0fHxkaXZlcnNlJTIwcG9ydHJhaXRzJTIwc21pbGluZyUyMHBlb3BsZXxlbnwwfHx8fDE3NjczMDY3MTZ8MA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1595956936239-4cad0fa009e6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwzfHxkaXZlcnNlJTIwcG9ydHJhaXRzJTIwc21pbGluZyUyMHBlb3BsZXxlbnwwfHx8fDE3NjczMDY3MTZ8MA&ixlib=rb-4.1.0&q=85"
+      ],
+      "logos": [
+        "https://images.unsplash.com/photo-1763461092785-816bddca2ee1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwxfHxjaGVzcyUyMGNsdWIlMjBsb2dvJTIwbWluaW1hbGlzdHxlbnwwfHx8fDE3NjczMDY3MTh8MA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1743354832606-e8cbf29e7c64?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwyfHxjaGVzcyUyMGNsdWIlMjBsb2dvJTIwbWluaW1hbGlzdHxlbnwwfHx8fDE3NjczMDY3MTh8MA&ixlib=rb-4.1.0&q=85"
+      ]
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. UPDATE TAILWIND CONFIG: Add the 'mahogany' and 'beige' color palettes to tailwind.config.js. Set 'background' to beige-100 (#F5F5F0) and 'primary' to mahogany-800 (#5A2A2A).",
+    "2. FONT SETUP: Import 'Playfair Display' and 'Manrope' from Google Fonts in index.css. Apply Playfair to headings and Manrope to body.",
+    "3. UI STYLE: Implement the 'Playtomic' card style: White cards with rounded-2xl, soft shadow-sm, and generous padding. Do NOT use heavy borders.",
+    "4. NAVIGATION: Create a mobile-first bottom navigation bar for the main app views (Events, My Events, Profile).",
+    "5. IMAGES: Use the provided image URLs for seed data and UI placeholders. Do not use placeholders like 'via.placeholder.com'.",
+    "6. DATA-TESTID: Ensure every interactive element (buttons, inputs, cards) has a unique data-testid attribute.",
+    "7. CLUB PROFILES: Design club profiles to look like 'Communities' - show member count, upcoming events, and a 'Join Club' button.",
+    "8. EVENT CARDS: Must show: Date (Day/Month box), Title, Location, Level (Badge), and 'Seats Left' indicator.",
+    "9. AUTH: Design a clean login page with the Mahogany branding. Use a split layout (Image on left, Form on right) for desktop."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) for overlays.",
+    "You MUST NOT apply universal transition. Eg: transition: all. This results in breaking transforms.",
+    "You MUST NOT center align the app container.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations.",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions.",
+    "Use 2-3x more spacing than feels comfortable.",
+    "Use sonner for toasts."
+  ]
+}
