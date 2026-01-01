@@ -608,7 +608,14 @@ class SocialChessAPITester:
             self.test_create_event,
             self.test_clubs_listing,
             self.test_club_detail,
-            self.test_user_profile
+            self.test_user_profile,
+            # Chess integration tests
+            self.test_chess_com_lookup,
+            self.test_lichess_lookup,
+            self.test_chess_account_linking,
+            self.test_chess_refresh_ratings,
+            self.test_chess_unlink_accounts,
+            self.test_existing_chess_user
         ]
         
         for test in tests:
