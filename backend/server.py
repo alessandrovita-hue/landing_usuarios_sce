@@ -403,6 +403,195 @@ async def update_user(update_data: UserUpdate, user: dict = Depends(get_current_
     updated_user = await db.users.find_one({"user_id": user["user_id"]}, {"_id": 0, "password_hash": 0})
     return UserResponse(**updated_user)
 
+# ============ CHESS INTEGRATION ENDPOINTS ============
+
+def calculate_skill_level(rating: int) -> str:
+    """Convert numeric rating to skill level category"""
+    if rating < 1200:
+        return "principiante"
+    elif rating < 1800:
+        return "medio"
+    else:
+        return "avanzado"
+
+@api_router.get("/chess/lookup/{platform}/{username}")
+async def lookup_chess_rating(platform: str, username: str):
+    """Lookup rating from Chess.com or Lichess without linking to account"""
+    if platform not in ["chess_com", "lichess"]:
+        raise HTTPException(status_code=400, detail="Platform must be 'chess_com' or 'lichess'")
+    
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client_http:
+            if platform == "chess_com":
+                # Chess.com API
+                resp = await client_http.get(
+                    f"https://api.chess.com/pub/player/{username}/stats",
+                    headers={"User-Agent": "SocialChessEvents (contact@socialchess.com)"}
+                )
+                
+                if resp.status_code == 404:
+                    raise HTTPException(status_code=404, detail=f"Usuario '{username}' no encontrado en Chess.com")
+                if resp.status_code != 200:
+                    raise HTTPException(status_code=502, detail="Error al conectar con Chess.com")
+                
+                data = resp.json()
+                rapid = data.get("chess_rapid", {}).get("last", {}).get("rating")
+                blitz = data.get("chess_blitz", {}).get("last", {}).get("rating")
+                bullet = data.get("chess_bullet", {}).get("last", {}).get("rating")
+                
+                # Get best available rating
+                ratings = [r for r in [rapid, blitz, bullet] if r]
+                best_rating = max(ratings) if ratings else None
+                
+                if not best_rating:
+                    raise HTTPException(status_code=404, detail=f"No se encontraron partidas para '{username}' en Chess.com")
+                
+                return ChessRatingResponse(
+                    platform="chess_com",
+                    username=username,
+                    rapid_rating=rapid,
+                    blitz_rating=blitz,
+                    bullet_rating=bullet,
+                    best_rating=best_rating,
+                    skill_level=calculate_skill_level(best_rating)
+                )
+            
+            else:  # lichess
+                resp = await client_http.get(
+                    f"https://lichess.org/api/user/{username}",
+                    headers={"Accept": "application/json"}
+                )
+                
+                if resp.status_code == 404:
+                    raise HTTPException(status_code=404, detail=f"Usuario '{username}' no encontrado en Lichess")
+                if resp.status_code != 200:
+                    raise HTTPException(status_code=502, detail="Error al conectar con Lichess")
+                
+                data = resp.json()
+                perfs = data.get("perfs", {})
+                
+                rapid = perfs.get("rapid", {}).get("rating")
+                blitz = perfs.get("blitz", {}).get("rating")
+                bullet = perfs.get("bullet", {}).get("rating")
+                
+                ratings = [r for r in [rapid, blitz, bullet] if r]
+                best_rating = max(ratings) if ratings else None
+                
+                if not best_rating:
+                    raise HTTPException(status_code=404, detail=f"No se encontraron partidas para '{username}' en Lichess")
+                
+                return ChessRatingResponse(
+                    platform="lichess",
+                    username=username,
+                    rapid_rating=rapid,
+                    blitz_rating=blitz,
+                    bullet_rating=bullet,
+                    best_rating=best_rating,
+                    skill_level=calculate_skill_level(best_rating)
+                )
+                
+    except httpx.TimeoutException:
+        raise HTTPException(status_code=504, detail="Timeout al conectar con el servidor de ajedrez")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Chess API error: {e}")
+        raise HTTPException(status_code=500, detail="Error interno al obtener rating")
+
+@api_router.post("/chess/link")
+async def link_chess_account(link_data: ChessAccountLink, user: dict = Depends(get_current_user)):
+    """Link Chess.com or Lichess account and import rating"""
+    # First lookup the rating
+    rating_data = await lookup_chess_rating(link_data.platform, link_data.username)
+    
+    # Update user with chess account info
+    update_fields = {}
+    if link_data.platform == "chess_com":
+        update_fields["chess_com_username"] = link_data.username
+        update_fields["chess_com_rating"] = rating_data.best_rating
+    else:
+        update_fields["lichess_username"] = link_data.username
+        update_fields["lichess_rating"] = rating_data.best_rating
+    
+    # Also update skill level based on best rating
+    update_fields["skill_level"] = rating_data.skill_level
+    
+    await db.users.update_one(
+        {"user_id": user["user_id"]},
+        {"$set": update_fields}
+    )
+    
+    updated_user = await db.users.find_one({"user_id": user["user_id"]}, {"_id": 0, "password_hash": 0})
+    
+    return {
+        "message": f"Cuenta de {link_data.platform.replace('_', '.')} vinculada correctamente",
+        "rating_data": rating_data,
+        "user": UserResponse(**updated_user)
+    }
+
+@api_router.post("/chess/refresh")
+async def refresh_chess_ratings(user: dict = Depends(get_current_user)):
+    """Refresh ratings from linked chess accounts"""
+    updates = {}
+    results = []
+    
+    if user.get("chess_com_username"):
+        try:
+            rating_data = await lookup_chess_rating("chess_com", user["chess_com_username"])
+            updates["chess_com_rating"] = rating_data.best_rating
+            results.append({"platform": "chess_com", "rating": rating_data.best_rating, "status": "updated"})
+        except HTTPException as e:
+            results.append({"platform": "chess_com", "status": "error", "detail": e.detail})
+    
+    if user.get("lichess_username"):
+        try:
+            rating_data = await lookup_chess_rating("lichess", user["lichess_username"])
+            updates["lichess_rating"] = rating_data.best_rating
+            results.append({"platform": "lichess", "rating": rating_data.best_rating, "status": "updated"})
+        except HTTPException as e:
+            results.append({"platform": "lichess", "status": "error", "detail": e.detail})
+    
+    if not results:
+        raise HTTPException(status_code=400, detail="No hay cuentas de ajedrez vinculadas")
+    
+    # Update skill level based on best rating from any platform
+    all_ratings = [r.get("rating") for r in results if r.get("status") == "updated" and r.get("rating")]
+    if all_ratings:
+        best_rating = max(all_ratings)
+        updates["skill_level"] = calculate_skill_level(best_rating)
+    
+    if updates:
+        await db.users.update_one({"user_id": user["user_id"]}, {"$set": updates})
+    
+    updated_user = await db.users.find_one({"user_id": user["user_id"]}, {"_id": 0, "password_hash": 0})
+    
+    return {
+        "message": "Ratings actualizados",
+        "results": results,
+        "user": UserResponse(**updated_user)
+    }
+
+@api_router.delete("/chess/unlink/{platform}")
+async def unlink_chess_account(platform: str, user: dict = Depends(get_current_user)):
+    """Unlink a chess account"""
+    if platform not in ["chess_com", "lichess"]:
+        raise HTTPException(status_code=400, detail="Platform must be 'chess_com' or 'lichess'")
+    
+    unset_fields = {}
+    if platform == "chess_com":
+        unset_fields["chess_com_username"] = ""
+        unset_fields["chess_com_rating"] = ""
+    else:
+        unset_fields["lichess_username"] = ""
+        unset_fields["lichess_rating"] = ""
+    
+    await db.users.update_one(
+        {"user_id": user["user_id"]},
+        {"$unset": unset_fields}
+    )
+    
+    return {"message": f"Cuenta de {platform.replace('_', '.')} desvinculada"}
+
 # ============ CLUB ENDPOINTS ============
 
 @api_router.get("/clubs")
