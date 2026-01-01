@@ -123,7 +123,7 @@ export default function Auth() {
         <div className="absolute inset-0 flex items-center justify-center p-12">
           <div className="text-center">
             <img 
-              src="https://customer-assets.emergentagent.com/job_playmate-chess/artifacts/o36rjtsy_Presentacio%CC%81n%20app%20y%20MVP.png" 
+              src="https://customer-assets.emergentagent.com/job_playmate-chess/artifacts/p4fd6hj4_Presentacio%CC%81n%20app%20y%20MVP.png" 
               alt="Chess Events" 
               className="h-20 mx-auto mb-6 brightness-0 invert"
             />
@@ -147,7 +147,7 @@ export default function Auth() {
 
           <div className="lg:hidden text-center mb-8">
             <img 
-              src="https://customer-assets.emergentagent.com/job_playmate-chess/artifacts/o36rjtsy_Presentacio%CC%81n%20app%20y%20MVP.png" 
+              src="https://customer-assets.emergentagent.com/job_playmate-chess/artifacts/p4fd6hj4_Presentacio%CC%81n%20app%20y%20MVP.png" 
               alt="Chess Events" 
               className="h-12 mx-auto"
             />

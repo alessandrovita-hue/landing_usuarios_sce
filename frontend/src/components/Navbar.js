@@ -32,7 +32,7 @@ export function Navbar() {
             <div className="flex items-center gap-8">
               <Link to="/" className="flex items-center gap-2" data-testid="logo-link">
                 <img 
-                  src="https://customer-assets.emergentagent.com/job_playmate-chess/artifacts/o36rjtsy_Presentacio%CC%81n%20app%20y%20MVP.png" 
+                  src="https://customer-assets.emergentagent.com/job_playmate-chess/artifacts/p4fd6hj4_Presentacio%CC%81n%20app%20y%20MVP.png" 
                   alt="Chess Events" 
                   className="h-10 object-contain"
                 />
