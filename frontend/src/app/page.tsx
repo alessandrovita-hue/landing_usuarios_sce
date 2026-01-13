@@ -10,7 +10,8 @@ import {
 } from "lucide-react";
 
 // Configuration - Change this URL to your actual API endpoint
-const BETA_SIGNUP_API = "/api/beta-signup";
+// Set this to your backend API URL or a service like Formspree, Netlify Forms, etc.
+const BETA_SIGNUP_API = "https://formspree.io/f/YOUR_FORM_ID"; // TODO: Replace with your endpoint
 const SURVEY_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeQFsCSq0LHRU47WYyAxKZjKn6UHFWJ8_cXQNDjMMa7bYhRKw/viewform?usp=dialog";
 
 export default function Home() {
