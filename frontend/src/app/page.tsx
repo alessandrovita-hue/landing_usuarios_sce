@@ -532,18 +532,16 @@ function BetaSignupSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.email) {
-      setErrorMsg("El email es obligatorio");
+    // Validation - Name and Email are required by Google Form
+    if (!formData.name.trim()) {
+      setErrorMsg("El nombre es obligatorio");
       setStatus("error");
       return;
     }
-
-    // Check if API is configured
-    if (BETA_SIGNUP_API.includes("YOUR_FORM_ID") || !BETA_SIGNUP_API) {
-      // For demo purposes, show success even without backend
-      console.log("Beta signup (demo mode):", formData);
-      setStatus("success");
-      setFormData({ name: "", city: "", email: "" });
+    
+    if (!formData.email.trim()) {
+      setErrorMsg("El email es obligatorio");
+      setStatus("error");
       return;
     }
 
@@ -551,19 +549,34 @@ function BetaSignupSection() {
     setErrorMsg("");
 
     try {
-      const response = await fetch(BETA_SIGNUP_API, {
+      // Submit to Google Forms
+      const googleFormUrl = config.googleFormUrl;
+      const entries = config.googleFormEntries;
+      
+      const formBody = new URLSearchParams();
+      formBody.append(entries.name, formData.name);
+      formBody.append(entries.email, formData.email);
+      if (formData.city) {
+        formBody.append(entries.city, formData.city);
+      }
+
+      // Google Forms doesn't return CORS headers, so we use no-cors mode
+      // This means we won't get a proper response, but the data will be submitted
+      await fetch(googleFormUrl, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: formBody.toString(),
       });
 
-      if (response.ok) {
-        setStatus("success");
-        setFormData({ name: "", city: "", email: "" });
-      } else {
-        throw new Error("Error al enviar");
-      }
-    } catch {
+      // Since no-cors doesn't give us response status, we assume success
+      setStatus("success");
+      setFormData({ name: "", city: "", email: "" });
+      
+    } catch (error) {
+      console.error("Form submission error:", error);
       setStatus("error");
       setErrorMsg("Ha ocurrido un error. Inténtalo de nuevo.");
     }
