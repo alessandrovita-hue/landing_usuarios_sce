@@ -240,12 +240,12 @@ function WhatIsSection() {
             {
               icon: Calendar,
               title: "Inscripción sencilla",
-              description: "Sistema estilo Playtomic: apúntate en segundos, gestiona listas de espera y recibe confirmaciones automáticas."
+              description: "Apúntate a partidas presenciales en segundos. Gestiona listas de espera y recibe confirmaciones automáticas."
             },
             {
               icon: Users,
               title: "Conecta con jugadores",
-              description: "Perfiles de usuario, chat integrado y sistema de amigos para encontrar rivales de tu nivel."
+              description: "Encuentra jugadores cerca de ti, queda para partidas presenciales y crea tu red de rivales locales."
             },
             {
               icon: Trophy,
